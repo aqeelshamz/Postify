@@ -12,7 +12,7 @@ import 'package:postify/providers/postify.dart';
 import 'package:postify/providers/theme_provider.dart';
 import 'package:postify/screens/preview.dart';
 import 'package:postify/utils/colors.dart';
-import 'package:postify/utils/http_method.dart';
+import 'package:postify/utils/http_method_colors.dart';
 import 'package:postify/utils/http_status.dart';
 import 'package:postify/utils/size.dart';
 import 'package:provider/provider.dart';

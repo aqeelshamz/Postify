@@ -9,7 +9,7 @@ import 'package:postify/providers/page_controller.dart';
 import 'package:postify/providers/request_provider.dart';
 import 'package:postify/providers/theme_provider.dart';
 import 'package:postify/utils/colors.dart';
-import 'package:postify/utils/http_method.dart';
+import 'package:postify/utils/http_method_colors.dart';
 import 'package:postify/utils/size.dart';
 import 'package:provider/provider.dart';
 
