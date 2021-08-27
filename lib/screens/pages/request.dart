@@ -797,7 +797,6 @@ class _RequestPageState extends State<RequestPage>
                                       .read<RequestProvider>()
                                       .bodyController
                                       .text;
-                                  _url = _url.toLowerCase();
 
                                   context.read<Postify>().clearResponse();
                                   SystemChannels.textInput
