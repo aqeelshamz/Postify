@@ -20,23 +20,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(460,790),
-      builder: () => MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => Postify()),
-          ChangeNotifierProvider(create: (context) => PageControllerProvider()),
-          ChangeNotifierProvider(create: (context) => RequestProvider()),
-          ChangeNotifierProvider(create: (context) => HistoryProvider()),
-          ChangeNotifierProvider(create: (context) => ThemeProvider()),
-        ],
-        child: App()
-      ),
+      designSize: Size(460, 790),
+      builder: (context, x) => MultiProvider(providers: [
+        ChangeNotifierProvider(create: (context) => Postify()),
+        ChangeNotifierProvider(create: (context) => PageControllerProvider()),
+        ChangeNotifierProvider(create: (context) => RequestProvider()),
+        ChangeNotifierProvider(create: (context) => HistoryProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+      ], child: App()),
     );
   }
 }
 
 class App extends StatefulWidget {
-
   @override
   _AppState createState() => _AppState();
 }
@@ -45,40 +41,37 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Builder(
-          builder: (context) => GetMaterialApp(
-            home: SplashScreen(),
-            theme: ThemeData().copyWith(
-              textTheme: GoogleFonts.poppinsTextTheme(
-              ),
-              scaffoldBackgroundColor:
-                  context.watch<ThemeProvider>().isDarkTheme
-                      ? Color(0xFF1F1F1F)
-                      : Colors.white,
-              appBarTheme: AppBarTheme(
-                backgroundColor: context.watch<ThemeProvider>().isDarkTheme
-                      ? Color(0xFF1F1F1F)
-                      : Colors.white,
-                textTheme: GoogleFonts.poppinsTextTheme(),
-              ),
-              bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                backgroundColor: context.watch<ThemeProvider>().isDarkTheme
-                      ? Color(0xFF1F1F1F)
-                      : Colors.white,
-                selectedIconTheme: IconThemeData(
-                  color: primaryColor
-                ),
-                unselectedIconTheme: IconThemeData(
-                  color: context.watch<ThemeProvider>().isDarkTheme
-                      ? Colors.white.withOpacity(0.45)
-                      : Colors.black45,
-                ),
-                selectedItemColor: primaryColor,
-                unselectedItemColor: context.watch<ThemeProvider>().isDarkTheme
-                      ? Colors.white.withOpacity(0.45)
-                      : Colors.black45,
-              ),
-            ),
+      builder: (context) => GetMaterialApp(
+        home: SplashScreen(),
+        theme: ThemeData().copyWith(
+          textTheme: GoogleFonts.poppinsTextTheme(),
+          scaffoldBackgroundColor: context.watch<ThemeProvider>().isDarkTheme
+              ? Color(0xFF1F1F1F)
+              : Colors.white,
+          appBarTheme: AppBarTheme(
+            backgroundColor: context.watch<ThemeProvider>().isDarkTheme
+                ? Color(0xFF1F1F1F)
+                : Colors.white,
+            toolbarTextStyle: GoogleFonts.poppinsTextTheme().bodyMedium,
+            titleTextStyle: GoogleFonts.poppinsTextTheme().titleLarge,
           ),
-        );
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: context.watch<ThemeProvider>().isDarkTheme
+                ? Color(0xFF1F1F1F)
+                : Colors.white,
+            selectedIconTheme: IconThemeData(color: primaryColor),
+            unselectedIconTheme: IconThemeData(
+              color: context.watch<ThemeProvider>().isDarkTheme
+                  ? Colors.white.withOpacity(0.45)
+                  : Colors.black45,
+            ),
+            selectedItemColor: primaryColor,
+            unselectedItemColor: context.watch<ThemeProvider>().isDarkTheme
+                ? Colors.white.withOpacity(0.45)
+                : Colors.black45,
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -12,6 +12,7 @@ import 'package:postify/providers/postify.dart';
 import 'package:postify/providers/request_provider.dart';
 import 'package:postify/providers/theme_provider.dart';
 import 'package:postify/utils/colors.dart';
+import 'package:pretty_json/pretty_json.dart';
 import 'package:provider/provider.dart';
 import 'package:postify/utils/size.dart';
 
@@ -390,7 +391,6 @@ class _RequestPageState extends State<RequestPage>
                 !context.watch<RequestProvider>().bodyPreview
                     ? SizedBox.shrink()
                     : AnimatedSize(
-                        vsync: this,
                         duration: Duration(milliseconds: 200),
                         curve: Curves.easeOut,
                         clipBehavior: Clip.none,
@@ -882,6 +882,35 @@ class _RequestPageState extends State<RequestPage>
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          context.watch<RequestProvider>().syntax == "JSON"
+              ? Padding(
+                  padding: EdgeInsets.only(right: width * 0.01),
+                  child: Material(
+                    color: Colors.yellow[800],
+                    child: IconButton(
+                      tooltip: "Prettify JSON",
+                      icon: Icon(FeatherIcons.code, color: Colors.white),
+                      onPressed: () {
+                        String bodyText =
+                            context.read<RequestProvider>().bodyController.text;
+                        try {
+                          bodyText =
+                              prettyJson(jsonDecode(bodyText), indent: 2);
+                        } catch (e) {
+                          Fluttertoast.showToast(
+                              msg: "Incorrect JSON\n${e.toString()}",
+                              backgroundColor: Colors.red);
+                        }
+                        context.read<RequestProvider>().bodyController.text =
+                            bodyText;
+                        context.read<RequestProvider>().changeBodyPreview(true);
+
+                        // context.read<RequestProvider>().changeBodyPreview(true);
+                      },
+                    ),
+                  ),
+                )
+              : SizedBox.shrink(),
           context.read<RequestProvider>().bodyController.text == ""
               ? SizedBox.shrink()
               : Material(
@@ -973,7 +1002,7 @@ class _RequestPageState extends State<RequestPage>
                       },
                     ),
                   ),
-                )
+                ),
         ],
       ),
       context.watch<RequestProvider>().bodyPreview

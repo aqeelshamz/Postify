@@ -15,9 +15,10 @@ import 'package:postify/utils/colors.dart';
 import 'package:postify/utils/http_method_colors.dart';
 import 'package:postify/utils/http_status.dart';
 import 'package:postify/utils/size.dart';
+import 'package:pretty_json/pretty_json.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ResponsePage extends StatefulWidget {
   const ResponsePage({Key? key}) : super(key: key);
@@ -380,7 +381,14 @@ class ResponsePageState extends State<ResponsePage> {
                   ),
                 ),
                 HighlightView(
-                  context.read<Postify>().response.body,
+                  //Prettify if response body is JSON
+                  getLanguage(jsonEncode(
+                              context.read<Postify>().response.headers)) ==
+                          "json"
+                      ? prettyJson(
+                          jsonDecode(context.read<Postify>().response.body),
+                          indent: 2)
+                      : context.read<Postify>().response.body,
                   padding: EdgeInsets.all(width * 0.02),
                   language: getLanguage(
                       jsonEncode(context.read<Postify>().response.headers)),

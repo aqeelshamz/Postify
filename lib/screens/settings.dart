@@ -153,7 +153,6 @@ class _SettingsScreenState extends State<SettingsScreen>
                                   : Colors.black))),
                   Divider(),
                   AnimatedSize(
-                    vsync: this,
                     curve: Curves.easeOut,
                     clipBehavior: Clip.none,
                     duration: Duration(milliseconds: 400),
@@ -365,41 +364,43 @@ class _SettingsScreenState extends State<SettingsScreen>
                           color: context.watch<ThemeProvider>().isDarkTheme
                               ? Colors.white.withOpacity(0.5)
                               : Colors.black.withOpacity(0.5))),
-                              
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        tooltip: "GitHub",
+                          tooltip: "GitHub",
                           icon: Icon(FeatherIcons.github,
                               color: context.watch<ThemeProvider>().isDarkTheme
                                   ? Colors.white.withOpacity(0.5)
                                   : Colors.black.withOpacity(0.5)),
                           onPressed: () {
-                            launch("https://github.com/aqeelshamz");
+                            launchUrl(
+                                Uri.parse("https://github.com/aqeelshamz"));
                           }),
                       IconButton(
-                        tooltip: "Instagram",
+                          tooltip: "Instagram",
                           icon: Icon(FeatherIcons.instagram,
                               color: context.watch<ThemeProvider>().isDarkTheme
                                   ? Colors.white.withOpacity(0.5)
                                   : Colors.black.withOpacity(0.5)),
                           onPressed: () {
-                            launch("https://instagram.com/aqeelshamz");
+                            launchUrl(
+                                Uri.parse("https://instagram.com/aqeelshamz"));
                           }),
                       IconButton(
-                        tooltip: "Twitter",
+                          tooltip: "Twitter",
                           icon: Icon(FeatherIcons.twitter,
                               color: context.watch<ThemeProvider>().isDarkTheme
                                   ? Colors.white.withOpacity(0.5)
                                   : Colors.black.withOpacity(0.5)),
                           onPressed: () {
-                            launch("https://twitter.com/aqeelshamz");
+                            launchUrl(
+                                Uri.parse("https://twitter.com/aqeelshamz"));
                           }),
                     ],
                   ),
                   SizedBox(height: height * 0.01),
-                   Divider(
+                  Divider(
                       thickness: 2,
                       color: context.watch<ThemeProvider>().isDarkTheme
                           ? Colors.white.withOpacity(0.2)
